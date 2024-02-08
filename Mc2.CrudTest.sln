@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Domain", "Mc2.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Application", "Mc2.CrudTest.Application\Mc2.CrudTest.Application.csproj", "{9376A6F0-C14F-45AC-9577-2BAFDF1C777C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Infrustructure", "Mc2.CrudTest.Infrustructure\Mc2.CrudTest.Infrustructure.csproj", "{B05EA5B8-22BE-47DF-AF37-0958CCFD439B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Infrastructure", "Mc2.CrudTest.Infrastructure\Mc2.CrudTest.Infrastructure.csproj", "{B05EA5B8-22BE-47DF-AF37-0958CCFD439B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Domain.UnitTests", "Mc2.CrudTest.Domain.UnitTests\Mc2.CrudTest.Domain.UnitTests.csproj", "{67812A30-F061-4225-866E-5120A63B9985}"
 EndProject
