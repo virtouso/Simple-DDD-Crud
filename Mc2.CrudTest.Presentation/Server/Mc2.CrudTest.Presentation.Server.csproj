@@ -4,7 +4,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Mc2.CrudTest.Presentation.Server</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,8 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Mc2.CrudTest.Common.Swagger\Mc2.CrudTest.Common.Swagger.csproj" />
     <ProjectReference Include="..\Client\Mc2.CrudTest.Presentation.Client.csproj" />
+    <ProjectReference Include="..\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 
