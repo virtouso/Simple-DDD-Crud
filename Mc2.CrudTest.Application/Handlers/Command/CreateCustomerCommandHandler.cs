@@ -49,9 +49,6 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
         if (!validator.Validate(request).IsValid)
             return new MetaResponse<bool> { ResponseType = ResponseType.BadInput, Message = "invalid input sent", Result = false };
         
-        if (!validator.Validate(request).IsValid)
-            return new MetaResponse<bool> { ResponseType = ResponseType.BadInput, Message = "invalid input sent", Result = false };
-
 
         var emailResult = _customerrepository.ReadByEmail(request.Email);
         if (emailResult != null)
@@ -60,10 +57,7 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
 
         var nameAndBirthResult = _customerrepository.ReadByNameFamilyBirthDate(request.FirstName, request.LastName, request.DateOfBirth);
         if (nameAndBirthResult != null)
-            return new MetaResponse<bool>
-            {
-                ResponseType = ResponseType.SameNameAndBirth, Message = "user with same name and family exist", Result = false
-            };
+            return new MetaResponse<bool> { ResponseType = ResponseType.SameNameAndBirth, Message = "user with same name and family exist", Result = false };
         
         
         return new MetaResponse<bool> { ResponseType = ResponseType.Success, Result = true };

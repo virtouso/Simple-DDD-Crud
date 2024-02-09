@@ -44,4 +44,18 @@ public class CustomerController : Controller
         return Ok(result);
     }
     
+    
+    [Route("v{version:apiVersion}/[controller]/[action]")]
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateCustomerCommand request)
+    {
+        var result = await _mediator.Send(request);
+
+        if (result.ResponseType == ResponseType.BadInput)
+            return BadRequest(result);
+        if (result.ResponseType == ResponseType.NotFound)
+            return NotFound(result);
+        return Ok(result);
+    }
+    
 }

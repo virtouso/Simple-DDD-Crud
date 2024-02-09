@@ -27,12 +27,12 @@ public class CustomerInMemoryRepository : ICustomerRepository
 
     public bool Update(Customer item)
     {
-        var result = _customers.FirstOrDefault(x => x.Id == item.Id);
+        var result = _customers.FirstOrDefault(x => x.Email == item.Email);
 
         if (result == null) return false;
 
         result.Email = item.Email;
-        result.FirstName = item.Email;
+        result.FirstName = item.FirstName;
         result.LastName = item.LastName;
         result.BankAccountNumber = item.BankAccountNumber;
         result.PhoneNumber = item.PhoneNumber;

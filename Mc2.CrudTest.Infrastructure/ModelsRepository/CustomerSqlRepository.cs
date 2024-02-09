@@ -28,7 +28,7 @@ public class CustomerSqlRepository : ICustomerRepository
 
     public bool Update(Customer item)
     {
-        var result = _customerDbContext.Customers.FirstOrDefault(x => x.Id == item.Id);
+        var result = _customerDbContext.Customers.FirstOrDefault(x => x.Email == item.Email);
         if (result == null)
             return false;
 
