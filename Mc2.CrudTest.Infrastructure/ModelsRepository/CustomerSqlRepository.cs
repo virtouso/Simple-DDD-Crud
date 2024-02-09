@@ -47,6 +47,7 @@ public class CustomerSqlRepository : ICustomerRepository
         var result = _customerDbContext.Customers.FirstOrDefault(x => x.Id == id);
         if (result == null) return false;
         _customerDbContext.Customers.Remove(result);
+        _customerDbContext.SaveChanges();
         return true;
     }
 
