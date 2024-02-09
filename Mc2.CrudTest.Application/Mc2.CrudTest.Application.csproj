@@ -14,11 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Handlers\Query\" />
-      <Folder Include="Models\Queries\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Mc2.CrudTest.Infrastructure\Mc2.CrudTest.Infrastructure.csproj" />
     </ItemGroup>
 

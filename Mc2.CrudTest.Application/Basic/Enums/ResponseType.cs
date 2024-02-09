@@ -5,6 +5,7 @@ public enum ResponseType
     Success,
     BadInput,
     EmailExist,
-    SameNameAndBirth
+    SameNameAndBirth,
+    NotFound
 }
 
