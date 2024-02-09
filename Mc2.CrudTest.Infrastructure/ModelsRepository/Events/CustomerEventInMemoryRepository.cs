@@ -1,14 +1,13 @@
-﻿using Mc2.CrudTest.Domain.Entities;
+﻿using Mc2.CrudTest.Infrastructure.Models;
 
-namespace Mc2.CrudTest.Infrastructure.ModelsRepository;
+namespace Mc2.CrudTest.Infrastructure.ModelsRepository.Events;
 
-// this class is used for unit testing
-public class CustomerInMemoryRepository : ICustomerRepository
+public class CustomerEventInMemoryRepository:ICustomerEventsRepository
 {
-    private List<Customer> _customers = new();
+    private List<CustomerEvent> _customers = new();
 
 
-    public bool Create(Customer item)
+    public bool Create(CustomerEvent item)
     {
         if (_customers.FirstOrDefault(x => x.Id == item.Id) != null)
             return false;
@@ -16,12 +15,12 @@ public class CustomerInMemoryRepository : ICustomerRepository
         return true;
     }
 
-    public Customer Read(Int64 id)
+    public CustomerEvent Read(Int64 id)
     {
         return _customers.FirstOrDefault(x => x.Id == id);
     }
 
-    public bool Update(Customer item)
+    public bool Update(CustomerEvent item)
     {
         var result = _customers.FirstOrDefault(x => x.Email == item.Email);
 
@@ -46,13 +45,5 @@ public class CustomerInMemoryRepository : ICustomerRepository
         return true;
     }
 
-    public Customer ReadByEmail(string Email)
-    {
-        return _customers.FirstOrDefault(x => x.Email == Email);
-    }
-
-    public Customer ReadByNameFamilyBirthDate(string firstName, string lastName, DateTime dateOfBirth)
-    {
-        return _customers.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName && x.DateOfBirth == dateOfBirth);
-    }
+    
 }

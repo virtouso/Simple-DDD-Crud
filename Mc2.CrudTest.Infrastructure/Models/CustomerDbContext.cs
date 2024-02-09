@@ -28,7 +28,6 @@ public class CustomerDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Customer>().ToTable("Customers");
-
        // using attributes is cleaner compared to this. but needs to redefine model for sql. this way doesnt need that
         modelBuilder.Entity<Customer>().Property(e => e.Id).ValueGeneratedOnAdd().IsRequired(); 
         modelBuilder.Entity<Customer>().Property(e => e.FirstName).HasColumnType("nvarchar(20)");
@@ -37,8 +36,21 @@ public class CustomerDbContext : DbContext
         modelBuilder.Entity<Customer>().Property(e => e.PhoneNumber).HasColumnType("nvarchar(20)");
         modelBuilder.Entity<Customer>().Property(e => e.Email).HasColumnType("nvarchar(20)");
         modelBuilder.Entity<Customer>().HasIndex(e => e.Email).IsUnique();
+
+
+        modelBuilder.Entity<CustomerEvent>().ToTable("CustomerEvents");
+        modelBuilder.Entity<CustomerEvent>().Property(e => e.Id).ValueGeneratedOnAdd().IsRequired(); 
+        modelBuilder.Entity<CustomerEvent>().Property(e => e.FirstName).HasColumnType("nvarchar(20)");
+        modelBuilder.Entity<CustomerEvent>().Property(e => e.LastName).HasColumnType("nvarchar(20)");
+        modelBuilder.Entity<CustomerEvent>().Property(e => e.BankAccountNumber).HasColumnType("nvarchar(20)");
+        modelBuilder.Entity<CustomerEvent>().Property(e => e.PhoneNumber).HasColumnType("nvarchar(20)");
+        modelBuilder.Entity<CustomerEvent>().Property(e => e.Email).HasColumnType("nvarchar(20)");
+      
+        
     }
 
 
     public DbSet<Customer> Customers { get; set; }
+    // better used event specialized database
+    public DbSet<CustomerEvent> CustomerEvents { get; set; }
 }

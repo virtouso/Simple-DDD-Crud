@@ -3,6 +3,7 @@ using Mc2.CrudTest.Application;
 using Mc2.CrudTest.Common.Swagger;
 using Mc2.CrudTest.Infrastructure.Models;
 using Mc2.CrudTest.Infrastructure.ModelsRepository;
+using Mc2.CrudTest.Infrastructure.ModelsRepository.Events;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddSwaggerVersion(builder.Configuration, Assembly.GetExecutingA
 builder.Services.InstallMediatr();
 builder.Services.AddDbContext<CustomerDbContext>(optionsAction => { optionsAction.UseSqlServer("DefaultConnection"); });
 builder.Services.AddScoped<ICustomerRepository, CustomerSqlRepository>();
+builder.Services.AddScoped<ICustomerEventsRepository,CustomerEventSqlRepository>();
 var app = builder.Build();
 
 

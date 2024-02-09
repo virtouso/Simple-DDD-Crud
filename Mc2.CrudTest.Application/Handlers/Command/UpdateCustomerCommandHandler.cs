@@ -4,20 +4,23 @@ using Mc2.CrudTest.Application.Basic.Enums;
 using Mc2.CrudTest.Application.Models;
 using Mc2.CrudTest.Application.Models.Commands;
 using Mc2.CrudTest.Domain.Entities;
+using Mc2.CrudTest.Infrastructure.Models;
 using Mc2.CrudTest.Infrastructure.ModelsRepository;
+using Mc2.CrudTest.Infrastructure.ModelsRepository.Events;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mc2.CrudTest.Application.Handlers.Command;
 
-public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, MetaResponse<bool>>
-    , IRequestValidator<UpdateCustomerCommand, MetaResponse<bool>>
+public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, MetaResponse<bool>>, IRequestValidator<UpdateCustomerCommand, MetaResponse<bool>>
 {
-    private ICustomerRepository _customerrepository;
+    private ICustomerRepository _customerRepository;
+    private ICustomerEventsRepository _customerEventsRepository;
 
-    public UpdateCustomerCommandHandler(ICustomerRepository customerrepository)
+    public UpdateCustomerCommandHandler(ICustomerRepository customerRepository, ICustomerEventsRepository customerEventsRepository)
     {
-        _customerrepository = customerrepository;
+        _customerRepository = customerRepository;
+        _customerEventsRepository = customerEventsRepository;
     }
 
 
@@ -28,7 +31,7 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
             return validationResult;
 
 
-        var result = _customerrepository.Update(new Customer
+        var result = _customerRepository.Update(new Customer
         {
             BankAccountNumber = request.BankAccountNumber
             , FirstName = request.FirstName
@@ -41,6 +44,19 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
         if (!result)
             return new MetaResponse<bool> { Result = false, ResponseType = ResponseType.NotFound, Message = "record not found"};
 
+        
+        _customerEventsRepository.Create(new CustomerEvent
+        {
+            Email = request.Email
+            , DateOfBirth = request.DateOfBirth
+            , FirstName = request.FirstName
+            , LastName = request.LastName
+            , PhoneNumber = request.PhoneNumber
+            , BankAccountNumber = request.BankAccountNumber
+            , EventDate = DateTime.UtcNow
+            , EventType = EventType.Update
+        });
+        
         return new MetaResponse<bool> { ResponseType = ResponseType.Success, Result = true};
     }
 
@@ -54,7 +70,7 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
  
 
 
-        var emailResult = _customerrepository.ReadByEmail(request.Email);
+        var emailResult = _customerRepository.ReadByEmail(request.Email);
         if (emailResult == null)
             return new MetaResponse<bool> { ResponseType = ResponseType.EmailExist, Message = "email exist", Result = false };
 

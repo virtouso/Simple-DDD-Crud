@@ -3,6 +3,7 @@ using Mc2.CrudTest.Application.Handlers.Command;
 using Mc2.CrudTest.Application.Models.Commands;
 using Mc2.CrudTest.Domain.Entities;
 using Mc2.CrudTest.Infrastructure.ModelsRepository;
+using Mc2.CrudTest.Infrastructure.ModelsRepository.Events;
 
 namespace Mc2.CrudTest.Application.UnitTests;
 
@@ -10,11 +11,13 @@ public class CreateCommandHandlerTests
 {
     private readonly CreateCustomerCommandHandler _commandHandler;
     private ICustomerRepository _customerRepository;
+    private readonly ICustomerEventsRepository _customerEventsRepository;
 
     public CreateCommandHandlerTests()
     {
+        _customerEventsRepository = new CustomerEventInMemoryRepository();
         _customerRepository = new CustomerInMemoryRepository();
-        _commandHandler = new CreateCustomerCommandHandler(_customerRepository);
+        _commandHandler = new CreateCustomerCommandHandler(_customerRepository,_customerEventsRepository);
     }
 
 
