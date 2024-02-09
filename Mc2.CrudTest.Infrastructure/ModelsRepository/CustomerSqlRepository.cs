@@ -15,9 +15,7 @@ public class CustomerSqlRepository : ICustomerRepository
 
     public bool Create(Customer item)
     {
-        if (_customerDbContext.Customers.FirstOrDefault(x => x.Id == item.Id) != null)
-            return false;
-
+        
         _customerDbContext.Customers.Add(item);
         _customerDbContext.SaveChanges();
         return true;
@@ -50,5 +48,15 @@ public class CustomerSqlRepository : ICustomerRepository
         if (result == null) return false;
         _customerDbContext.Customers.Remove(result);
         return true;
+    }
+
+    public Customer ReadByEmail(string email)
+    {
+        return _customerDbContext.Customers.FirstOrDefault(x => x.Email == email);
+    }
+
+    public Customer ReadByNameFamilyBirthDate(string firstName, string lastName, DateTime dateOfBirth)
+    {
+        return _customerDbContext.Customers.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName && x.DateOfBirth == dateOfBirth);
     }
 }

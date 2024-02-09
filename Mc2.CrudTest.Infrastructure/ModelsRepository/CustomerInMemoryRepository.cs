@@ -49,4 +49,14 @@ public class CustomerInMemoryRepository : ICustomerRepository
         _customers.Remove(result);
         return true;
     }
+
+    public Customer ReadByEmail(string Email)
+    {
+        return _customers.FirstOrDefault(x => x.Email == Email);
+    }
+
+    public Customer ReadByNameFamilyBirthDate(string firstName, string lastName, DateTime dateOfBirth)
+    {
+        return _customers.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName && x.DateOfBirth == dateOfBirth);
+    }
 }
